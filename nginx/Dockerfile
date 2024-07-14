@@ -1,6 +1,11 @@
-FROM ubuntu:18.04   
-RUN  apt-get -y update && apt-get -y install nginx
-COPY files/default /etc/nginx/sites-available/default
-COPY files/index.html /usr/share/nginx/html/index.html
+# Use the official NGINX image from the Docker Hub
+FROM nginx:alpine
+
+# Copy the custom HTML file to the NGINX default location
+COPY index.html /usr/share/nginx/html/index.html
+
+# Expose port 80 to the outside world
 EXPOSE 80
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+
+# Start NGINX
+CMD ["nginx", "-g", "daemon off;"]
